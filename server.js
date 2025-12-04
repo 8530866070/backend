@@ -23,7 +23,7 @@ app.use('/api/auth', require('./routers/auth'));
 console.log("✅ Auth routes loaded");
 
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
+mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("✅ MongoDB Connected");
     app.listen(5000, () => console.log("Server running on http://localhost:5000"));
   })
