@@ -8,6 +8,7 @@ const authRoutes = require('./routers/auth');
 
 const app = express();
 
+app.use('/api/auth', authRoutes);
 app.use(cors({
   origin: ["https://frontend1-c7nh.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
