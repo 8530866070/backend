@@ -8,22 +8,23 @@ const authRoutes = require('./routers/auth');
 
 const app = express();
 
-app.use('/api/auth', authRoutes);
+
 app.use(cors({
   origin: ["https://frontend1-c7nh.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.options("*", cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Auction API is running ✅");
 });
 
+app.use('/api/auth', authRoutes);
 
 //app.use('/api/auth', authRoutes);
-app.use('/api/auth', require('./routers/auth'));
+// app.use('/api/auth', require('./routers/auth'));
 
 
 console.log("✅ Auth routes loaded");
