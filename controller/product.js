@@ -28,10 +28,10 @@ exports.AllProduct= async (req , res ) => {
 }
 
 
-exports.ProductbyId= async (req , res ) => {
+exports.ProductbyId= async (req , res ) => { 
     try {
             
-        const product = await Product.find(req.params.productId);
+        const product = await Product.findById(req.params.productId);
         
             res.json(product);
         
