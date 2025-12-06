@@ -26,3 +26,17 @@ exports.AllProduct= async (req , res ) => {
         res.status(500).json({ msg: 'Server Error' });
     }
 }
+
+
+exports.ProductbyId= async (req , res ) => {
+    try {
+            
+        const product = await Product.find(req.params.productId);
+        
+            res.json(product);
+        
+    } catch (err) {
+        console.log("fetching data error", err);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+}

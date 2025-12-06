@@ -1,13 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Bid = require('../models/Bid');
+const Bid = require('../models/Bid');                       
 const JoinedAuction = require('../models/JoinedAuction');
 const Leaderboard = require('../models/Leaderboard');
 const { Singup } = require('../controller/signup');
 const {Login} = require('../controller/login');
-const {AddProduct , AllProduct} = require('../controller/product');
+const {AddProduct , AllProduct , ProductbyId} = require('../controller/product');
 const User=require('../models/User');
+
 
 
 
@@ -53,7 +54,7 @@ router.post('/product',AddProduct);
 
 router.get('/allproducts',AllProduct);
 
-
+router.get('/productbyid/:productId',ProductbyId);
 
 // BID ------------------------------------------------
 
@@ -71,25 +72,14 @@ router.get('/bids/:productId', async (req, res) => {
 });
 
 
-
-router.post('/bid/:productId', async (req, res) => {
-  const { productId } = req.params;
-  const { userId, bidAmount } = req.body;
-
+router.post('/bid', async (req, res) => {
+  const { productId, user, amount } = req.body;
   try {
-    const newBid = await Bid.create({
-      productId,
-      user: userId,
-      amount: bidAmount,
-      bidTime: new Date()
-    });
-
-    res.json({ message: 'Bid placed successfully', newBid });
+    const newBid = await Bid.create({ productId, user, amount });
+    res.json(newBid);
   } catch (err) {
-    res.status(400).json({ message: 'Failed to place bid', error: err.message });
+    res.status(400).json({ message: 'Failed to place bid' });
   }
 });
-
-
 
 module.exports = router;
