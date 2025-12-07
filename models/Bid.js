@@ -6,7 +6,8 @@ const bidSchema = new mongoose.Schema({
     ref: 'Product',
     required: true,
   },
-  user: String,
+  user:  { type: mongoose.Schema.Types.ObjectId,
+  ref: 'User' },
   amount: Number,
   timestamp: {
     type: Date,

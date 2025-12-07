@@ -65,6 +65,7 @@ router.get('/bids/:productId', async (req, res) => {
   try {
     const bids = await Bid.find({ productId: req.params.productId })
       .sort({ amount: -1 })
+      .populate('user', 'name email');
     res.json(bids);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch bids' });
