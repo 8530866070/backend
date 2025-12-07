@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 exports.Login= async (req , res ) => {
     try {
-        console.log("Login Request Body:", req.body);
         const { email, password } = req.body;
     
         const user = await User.findOne({ email });
@@ -15,7 +14,7 @@ exports.Login= async (req , res ) => {
     
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
     
-        res.json({ message: 'Login successful', token, user: { email: user.email } });
+        res.json({ message: 'Login successful', token, user: { id: user._id,name: user.name,email: user.email } });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
